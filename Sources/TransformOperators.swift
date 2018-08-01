@@ -33,17 +33,17 @@ public func >>> <Transform: TransformType>(left: Transform.Object, right: (Map, 
 
 
 /// Optional object of basic type with Transform
-public func <- <Transform: TransformType>(left: inout Transform.Object?, right: (Map, Transform)) {
-	let (map, transform) = right
-	switch map.mappingType {
-	case .fromJSON where map.isKeyPresent:
-		let value = transform.transformFromJSON(map.currentValue)
-		FromJSON.optionalBasicType(&left, object: value)
-	case .toJSON:
-		left >>> right
-	default: ()
-	}
-}
+//public func <- <Transform: TransformType>(left: inout Transform.Object?, right: (Map, Transform)) {
+//    let (map, transform) = right
+//    switch map.mappingType {
+//    case .fromJSON where map.isKeyPresent:
+//        let value = transform.transformFromJSON(map.currentValue)
+//        FromJSON.optionalBasicType(&left, object: value)
+//    case .toJSON:
+//        left >>> right
+//    default: ()
+//    }
+//}
 
 public func >>> <Transform: TransformType>(left: Transform.Object?, right: (Map, Transform)) {
 	let (map, transform) = right
@@ -90,17 +90,17 @@ public func >>> <Transform: TransformType>(left: [Transform.Object], right: (Map
 
 
 /// Optional array of Basic type with Transform
-public func <- <Transform: TransformType>(left: inout [Transform.Object]?, right: (Map, Transform)) {
-	let (map, transform) = right
-	switch map.mappingType {
-	case .fromJSON where map.isKeyPresent:
-		let values = fromJSONArrayWithTransform(map.currentValue, transform: transform)
-		FromJSON.optionalBasicType(&left, object: values)
-	case .toJSON:
-		left >>> right
-	default: ()
-	}
-}
+//public func <- <Transform: TransformType>(left: inout [Transform.Object]?, right: (Map, Transform)) {
+//    let (map, transform) = right
+//    switch map.mappingType {
+//    case .fromJSON where map.isKeyPresent:
+//        let values = fromJSONArrayWithTransform(map.currentValue, transform: transform)
+//        FromJSON.optionalBasicType(&left, object: values)
+//    case .toJSON:
+//        left >>> right
+//    default: ()
+//    }
+//}
 
 public func >>> <Transform: TransformType>(left: [Transform.Object]?, right: (Map, Transform)) {
 	let (map, transform) = right
@@ -147,17 +147,17 @@ public func >>> <Transform: TransformType>(left: [String: Transform.Object], rig
 
 
 /// Optional dictionary of Basic type with Transform
-public func <- <Transform: TransformType>(left: inout [String: Transform.Object]?, right: (Map, Transform)) {
-	let (map, transform) = right
-	switch map.mappingType {
-	case .fromJSON where map.isKeyPresent:
-		let values = fromJSONDictionaryWithTransform(map.currentValue, transform: transform)
-		FromJSON.optionalBasicType(&left, object: values)
-	case .toJSON:
-		left >>> right
-	default: ()
-	}
-}
+//public func <- <Transform: TransformType>(left: inout [String: Transform.Object]?, right: (Map, Transform)) {
+//    let (map, transform) = right
+//    switch map.mappingType {
+//    case .fromJSON where map.isKeyPresent:
+//        let values = fromJSONDictionaryWithTransform(map.currentValue, transform: transform)
+//        FromJSON.optionalBasicType(&left, object: values)
+//    case .toJSON:
+//        left >>> right
+//    default: ()
+//    }
+//}
 
 public func >>> <Transform: TransformType>(left: [String: Transform.Object]?, right: (Map, Transform)) {
 	let (map, transform) = right
@@ -206,17 +206,17 @@ public func >>> <Transform: TransformType>(left: Transform.Object, right: (Map, 
 
 
 /// Optional Mappable objects that have transforms
-public func <- <Transform: TransformType>(left: inout Transform.Object?, right: (Map, Transform)) where Transform.Object: BaseMappable {
-	let (map, transform) = right
-	switch map.mappingType {
-	case .fromJSON where map.isKeyPresent:
-		let value: Transform.Object? = transform.transformFromJSON(map.currentValue)
-		FromJSON.optionalBasicType(&left, object: value)
-	case .toJSON:
-		left >>> right
-	default: ()
-	}
-}
+//public func <- <Transform: TransformType>(left: inout Transform.Object?, right: (Map, Transform)) where Transform.Object: BaseMappable {
+//    let (map, transform) = right
+//    switch map.mappingType {
+//    case .fromJSON where map.isKeyPresent:
+//        let value: Transform.Object? = transform.transformFromJSON(map.currentValue)
+//        FromJSON.optionalBasicType(&left, object: value)
+//    case .toJSON:
+//        left >>> right
+//    default: ()
+//    }
+//}
 
 public func >>> <Transform: TransformType>(left: Transform.Object?, right: (Map, Transform)) where Transform.Object: BaseMappable {
 	let (map, transform) = right
@@ -265,15 +265,15 @@ public func >>> <Transform: TransformType>(left: Dictionary<String, Transform.Ob
 
 
 /// Optional Dictionary of Mappable object <String, T: Mappable> with a transform
-public func <- <Transform: TransformType>(left: inout Dictionary<String, Transform.Object>?, right: (Map, Transform)) where Transform.Object: BaseMappable {
-	let (map, transform) = right
-	if map.mappingType == .fromJSON && map.isKeyPresent, let object = map.currentValue as? [String : Any]{
-		let value = fromJSONDictionaryWithTransform(object as Any?, transform: transform) ?? left
-		FromJSON.optionalBasicType(&left, object: value)
-	} else if map.mappingType == .toJSON {
-		left >>> right
-	}
-}
+//public func <- <Transform: TransformType>(left: inout Dictionary<String, Transform.Object>?, right: (Map, Transform)) where Transform.Object: BaseMappable {
+//    let (map, transform) = right
+//    if map.mappingType == .fromJSON && map.isKeyPresent, let object = map.currentValue as? [String : Any]{
+//        let value = fromJSONDictionaryWithTransform(object as Any?, transform: transform) ?? left
+//        FromJSON.optionalBasicType(&left, object: value)
+//    } else if map.mappingType == .toJSON {
+//        left >>> right
+//    }
+//}
 
 public func >>> <Transform: TransformType>(left: Dictionary<String, Transform.Object>?, right: (Map, Transform)) where Transform.Object: BaseMappable {
 	let (map, transform) = right
@@ -330,27 +330,27 @@ public func >>> <Transform: TransformType>(left: Dictionary<String, [Transform.O
 
 
 /// Optional Dictionary of Mappable object <String, T: Mappable> with a transform
-public func <- <Transform: TransformType>(left: inout Dictionary<String, [Transform.Object]>?, right: (Map, Transform)) where Transform.Object: BaseMappable {
-	let (map, transform) = right
-	
-	if let dictionary = map.currentValue as? [String : [Any]], map.mappingType == .fromJSON && map.isKeyPresent {
-		
-		let transformedDictionary = dictionary.map { (key: String, values: [Any]) -> (String, [Transform.Object]) in
-			if let jsonArray = fromJSONArrayWithTransform(values, transform: transform) {
-				return (key, jsonArray)
-			}
-			if let leftValue = left?[key] {
-				return (key, leftValue)
-			}
-			return (key, [])
-			
-		}
-		
-		FromJSON.optionalBasicType(&left, object: transformedDictionary)
-	} else if map.mappingType == .toJSON {
-		left >>> right
-	}
-}
+//public func <- <Transform: TransformType>(left: inout Dictionary<String, [Transform.Object]>?, right: (Map, Transform)) where Transform.Object: BaseMappable {
+//    let (map, transform) = right
+//
+//    if let dictionary = map.currentValue as? [String : [Any]], map.mappingType == .fromJSON && map.isKeyPresent {
+//
+//        let transformedDictionary = dictionary.map { (key: String, values: [Any]) -> (String, [Transform.Object]) in
+//            if let jsonArray = fromJSONArrayWithTransform(values, transform: transform) {
+//                return (key, jsonArray)
+//            }
+//            if let leftValue = left?[key] {
+//                return (key, leftValue)
+//            }
+//            return (key, [])
+//
+//        }
+//
+//        FromJSON.optionalBasicType(&left, object: transformedDictionary)
+//    } else if map.mappingType == .toJSON {
+//        left >>> right
+//    }
+//}
 
 public func >>> <Transform: TransformType>(left: Dictionary<String, [Transform.Object]>?, right: (Map, Transform)) where Transform.Object: BaseMappable {
 	let (map, transform) = right
@@ -411,17 +411,17 @@ public func >>> <Transform: TransformType>(left: Array<Transform.Object>, right:
 
 
 /// Optional array of Mappable objects
-public func <- <Transform: TransformType>(left: inout Array<Transform.Object>?, right: (Map, Transform)) where Transform.Object: BaseMappable {
-	let (map, transform) = right
-	switch map.mappingType {
-	case .fromJSON where map.isKeyPresent:
-		let transformedValues = fromJSONArrayWithTransform(map.currentValue, transform: transform)
-		FromJSON.optionalBasicType(&left, object: transformedValues)
-	case .toJSON:
-		left >>> right
-	default: ()
-	}
-}
+//public func <- <Transform: TransformType>(left: inout Array<Transform.Object>?, right: (Map, Transform)) where Transform.Object: BaseMappable {
+//    let (map, transform) = right
+//    switch map.mappingType {
+//    case .fromJSON where map.isKeyPresent:
+//        let transformedValues = fromJSONArrayWithTransform(map.currentValue, transform: transform)
+//        FromJSON.optionalBasicType(&left, object: transformedValues)
+//    case .toJSON:
+//        left >>> right
+//    default: ()
+//    }
+//}
 
 public func >>> <Transform: TransformType>(left: Array<Transform.Object>?, right: (Map, Transform)) where Transform.Object: BaseMappable {
 	let (map, transform) = right
@@ -475,21 +475,21 @@ public func >>> <Transform: TransformType>(left: [[Transform.Object]], right: (M
 }
 
 /// Optional array of array of objects with transform
-public func <- <Transform: TransformType>(left: inout [[Transform.Object]]?, right: (Map, Transform)) {
-	let (map, transform) = right
-	switch map.mappingType {
-	case .toJSON:
-		left >>> right
-	case .fromJSON where map.isKeyPresent:
-		guard let original2DArray = map.currentValue as? [[Any]] else { break }
-		let transformed2DArray = original2DArray.flatMap { values in
-			fromJSONArrayWithTransform(values as Any?, transform: transform)
-		}
-		FromJSON.optionalBasicType(&left, object: transformed2DArray)
-	default:
-		break
-	}
-}
+//public func <- <Transform: TransformType>(left: inout [[Transform.Object]]?, right: (Map, Transform)) {
+//    let (map, transform) = right
+//    switch map.mappingType {
+//    case .toJSON:
+//        left >>> right
+//    case .fromJSON where map.isKeyPresent:
+//        guard let original2DArray = map.currentValue as? [[Any]] else { break }
+//        let transformed2DArray = original2DArray.flatMap { values in
+//            fromJSONArrayWithTransform(values as Any?, transform: transform)
+//        }
+//        FromJSON.optionalBasicType(&left, object: transformed2DArray)
+//    default:
+//        break
+//    }
+//}
 
 public func >>> <Transform: TransformType>(left: [[Transform.Object]]?, right: (Map, Transform)) {
 	let (map, transform) = right
@@ -545,18 +545,18 @@ public func >>> <Transform: TransformType>(left: Set<Transform.Object>, right: (
 
 
 /// Optional Set of Mappable objects with transform
-public func <- <Transform: TransformType>(left: inout Set<Transform.Object>?, right: (Map, Transform)) where Transform.Object: Hashable & BaseMappable {
-	let (map, transform) = right
-	switch map.mappingType {
-	case .fromJSON where map.isKeyPresent:
-		if let transformedValues = fromJSONArrayWithTransform(map.currentValue, transform: transform) {
-			FromJSON.basicType(&left, object: Set(transformedValues))
-		}
-	case .toJSON:
-		left >>> right
-	default: ()
-	}
-}
+//public func <- <Transform: TransformType>(left: inout Set<Transform.Object>?, right: (Map, Transform)) where Transform.Object: Hashable & BaseMappable {
+//    let (map, transform) = right
+//    switch map.mappingType {
+//    case .fromJSON where map.isKeyPresent:
+//        if let transformedValues = fromJSONArrayWithTransform(map.currentValue, transform: transform) {
+//            FromJSON.basicType(&left, object: Set(transformedValues))
+//        }
+//    case .toJSON:
+//        left >>> right
+//    default: ()
+//    }
+//}
 
 public func >>> <Transform: TransformType>(left: Set<Transform.Object>?, right: (Map, Transform)) where Transform.Object: Hashable & BaseMappable {
 	let (map, transform) = right
